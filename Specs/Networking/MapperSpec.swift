@@ -63,19 +63,7 @@ class MapperSpec: QuickSpec {
                     let activities = Mapper.mapToObjectArray(friendData, fromJSON: Activity.fromJSON)
 
                     expect(activities).toNot(beNil())
-                    expect(activities?.first).to(beAKindOf(Activity.self))
-                }
-            }
-
-            context("invalid input") {
-
-                it("returns nil") {
-                    let invalidAnyObject: AnyObject = NSString(string: "invalid") as AnyObject
-                    let anotherAnyObject: AnyObject = NSString(string: "invalid") as AnyObject
-
-                    let invalidArray = NSArray(array: [invalidAnyObject, anotherAnyObject])
-
-                    expect(Mapper.mapToObjectArray(invalidArray, fromJSON: User.fromJSON)).to(beNil())
+                    expect(activities.first).to(beAKindOf(Activity.self))
                 }
             }
         }

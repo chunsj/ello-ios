@@ -152,7 +152,7 @@ public enum ElloAPI {
             }
             return api.mappingType
         case .ProfileToggles:
-            return .CategoriesType
+            return .DynamicSettingsType
         case .Relationship:
             return .RelationshipsType
         default:

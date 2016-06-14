@@ -16,8 +16,8 @@ public enum MappingType: String {
     case AssetsType = "assets"
     case AutoCompleteResultType = "autocomplete_results"
     case AvailabilityType = "availability"
-    case CategoriesType = "categories"
     case CommentsType = "comments"
+    case DynamicSettingsType = "categories"
     case ErrorType = "error"
     case ErrorsType = "errors"
     case LovesType = "loves"
@@ -39,10 +39,10 @@ public enum MappingType: String {
             return AutoCompleteResult.fromJSON
         case AvailabilityType:
             return Availability.fromJSON
-        case CategoriesType:
-            return DynamicSettingCategory.fromJSON
         case CommentsType:
             return ElloComment.fromJSON
+        case DynamicSettingsType:
+            return DynamicSettingCategory.fromJSON
         case ErrorType:
             return ElloNetworkError.fromJSON
         case ErrorsType:

@@ -29,7 +29,7 @@ public struct ElloLinkedStore {
         writeConnection = database.newConnection()
     }
 
-    public func parseLinked(linked: [String:[[String:AnyObject]]], completion: ElloEmptyCompletion) {
+    public func parseLinked(linked: [String:[[String: AnyObject]]], completion: ElloEmptyCompletion) {
         if AppSetup.sharedState.isTesting {
             parseLinkedSync(linked)
             completion()
@@ -116,9 +116,9 @@ private extension ElloLinkedStore {
     }
 
     func parseLinkedSync(linked: [String: [[String: AnyObject]]]) {
-        for (type, typeObjects): (String, [[String:AnyObject]]) in linked {
+        for (type, typeObjects): (String, [[String: AnyObject]]) in linked {
             if let mappingType = MappingType(rawValue: type) {
-                for object: [String:AnyObject] in typeObjects {
+                for object: [String: AnyObject] in typeObjects {
                     if let id = object["id"] as? String {
                         let jsonable = mappingType.fromJSON(data: object, fromLinked: true)
 
