@@ -7,12 +7,9 @@
 //
 
 public class DiscoverViewController: StreamableViewController {
+    let tmpCategoryList: CategoryList = CategoryList.tmp()
 
-    @IBOutlet weak var navigationContainer: UIView!
-    weak var navigationBar: ElloNavigationBar!
-    @IBOutlet weak var inviteButton: UIButton!
-    @IBOutlet weak var chevron: UIImageView!
-    @IBOutlet weak var inviteLabel: UILabel!
+    var screen: DiscoverScreen!
 
     override public var tabBarItem: UITabBarItem? {
         get { return UITabBarItem.item(.Sparkles, insets: UIEdgeInsets(top: 8, left: 0, bottom: -8, right: 0)) }
@@ -20,30 +17,52 @@ public class DiscoverViewController: StreamableViewController {
     }
 
     required public init() {
-        super.init(nibName: "DiscoverViewController", bundle: nil)
+        super.init(nibName: nil, bundle: nil)
+
+        addSearchButton()
         title = InterfaceString.Discover.Title
+        elloNavigationItem.title = title
         streamViewController.streamKind = .Discover(type: .Recommended, perPage: 10)
+        streamViewController.customStreamCellItems = { jsonables, defaultItems in
+            var items: [StreamCellItem] = []
+
+            let toggleCellItem = StreamCellItem(jsonable: JSONAble(version: 1), type: .ColumnToggle)
+            let categoryList = self.tmpCategoryList
+            categoryList.selectedCategory = categoryList.categories.first
+            let categoryListItem = StreamCellItem(jsonable: categoryList, type: .CategoryList)
+            items += [toggleCellItem, categoryListItem]
+
+            items += defaultItems()
+            return items
+        }
     }
 
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
+    override public func loadView() {
+        self.screen = DiscoverScreen(navigationItem: elloNavigationItem)
+        self.view = screen
+        viewContainer = screen.streamContainer
+    }
+
     override public func viewDidLoad() {
         super.viewDidLoad()
-        setupNavigationBar()
+        navigationController?.navigationBarHidden = true
+
         scrollLogic.prevOffset = streamViewController.collectionView.contentOffset
         ElloHUD.showLoadingHudInView(streamViewController.view)
         streamViewController.loadInitialPage()
     }
 
     private func updateInsets() {
-        updateInsets(navBar: navigationContainer, streamController: streamViewController)
+        updateInsets(navBar: screen.navigationBar, streamController: streamViewController)
     }
 
     override public func showNavBars(scrollToBottom: Bool) {
         super.showNavBars(scrollToBottom)
-        positionNavBar(navigationContainer, visible: true)
+        positionNavBar(screen.navigationBar, visible: true, withConstraint: screen.navigationBarTopConstraint)
         updateInsets()
 
         if scrollToBottom {
@@ -53,31 +72,7 @@ public class DiscoverViewController: StreamableViewController {
 
     override public func hideNavBars() {
         super.hideNavBars()
-        positionNavBar(navigationContainer, visible: false)
+        positionNavBar(screen.navigationBar, visible: false, withConstraint: screen.navigationBarTopConstraint)
         updateInsets()
-    }
-
-    // MARK: - IBActions
-
-    @IBAction func importMyContactsTapped() {
-        let responder = targetForAction(#selector(InviteResponder.onInviteFriends), withSender: self) as? InviteResponder
-        responder?.onInviteFriends()
-    }
-
-    // MARK: - Private
-
-    private func setupNavigationBar() {
-        navigationController?.navigationBarHidden = true
-        addSearchButton()
-        elloNavigationItem.title = title
-        navigationBar.items = [elloNavigationItem]
-        setupInviteFriendsButton()
-    }
-
-    private func setupInviteFriendsButton() {
-        chevron.image = InterfaceImage.AngleBracket.whiteImage
-        inviteLabel.text = InterfaceString.Friends.FindAndInvite
-        inviteLabel.font = UIFont.defaultFont()
-        inviteLabel.textColor = .whiteColor()
     }
 }

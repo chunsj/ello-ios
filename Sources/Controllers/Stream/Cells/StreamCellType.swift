@@ -22,8 +22,8 @@ public func == (lhs: StreamCellType, rhs: StreamCellType) -> Bool {
 }
 
 public enum StreamCellType: Equatable {
+    case CategoryList
     case ColumnToggle
-    case DiscoverStreamPicker
     case CommentHeader
     case CreateComment
     case Embed(data: Regionable?)
@@ -46,8 +46,8 @@ public enum StreamCellType: Equatable {
     case UserListItem
 
     static let all = [
+        CategoryList,
         ColumnToggle,
-        DiscoverStreamPicker,
         CommentHeader,
         CreateComment,
         Embed(data: nil),
@@ -105,14 +105,14 @@ public enum StreamCellType: Equatable {
         case UserAvatars: return 18
         case UserListItem: return 19
         case ColumnToggle: return 20
-        case DiscoverStreamPicker: return 21
+        case CategoryList: return 21
         }
     }
 
     public var name: String {
         switch self {
+        case CategoryList: return CategoryListCell.reuseIdentifier
         case ColumnToggle: return ColumnToggleCell.reuseIdentifier
-        case DiscoverStreamPicker: return DiscoverStreamPickerCell.reuseIdentifier
         case CommentHeader, Header: return StreamHeaderCell.reuseIdentifier
         case CreateComment: return StreamCreateCommentCell.reuseIdentifier
         case Embed: return StreamEmbedCell.reuseEmbedIdentifier
@@ -145,8 +145,8 @@ public enum StreamCellType: Equatable {
 
     public var configure: CellConfigClosure {
         switch self {
+        case CategoryList: return CategoryListCellPresenter.configure
         case ColumnToggle: return ColumnToggleCellPresenter.configure
-        case DiscoverStreamPicker: return DiscoverStreamPickerCellPresenter.configure
         case CommentHeader, Header: return StreamHeaderCellPresenter.configure
         case CreateComment: return StreamCreateCommentCellPresenter.configure
         case Embed: return StreamEmbedCellPresenter.configure
@@ -171,8 +171,8 @@ public enum StreamCellType: Equatable {
 
     public var classType: UICollectionViewCell.Type {
         switch self {
+        case CategoryList: return CategoryListCell.self
         case ColumnToggle: return ColumnToggleCell.self
-        case DiscoverStreamPicker: return DiscoverStreamPickerCell.self
         case CommentHeader, Header: return StreamHeaderCell.self
         case CreateComment: return StreamCreateCommentCell.self
         case Embed: return StreamEmbedCell.self
@@ -196,10 +196,10 @@ public enum StreamCellType: Equatable {
 
     public var oneColumnHeight: CGFloat {
         switch self {
+        case CategoryList:
+            return 66
         case ColumnToggle:
             return 40
-        case DiscoverStreamPicker:
-            return 50
         case CommentHeader,
              InviteFriends,
              SeeMoreComments:
@@ -242,8 +242,8 @@ public enum StreamCellType: Equatable {
 
     public var isFullWidth: Bool {
         switch self {
-        case ColumnToggle,
-             DiscoverStreamPicker,
+        case CategoryList,
+             ColumnToggle,
              CreateComment,
              FollowAll,
              InviteFriends,
@@ -278,6 +278,7 @@ public enum StreamCellType: Equatable {
 
     static func registerAll(collectionView: UICollectionView) {
         let noNibTypes = [
+            CategoryList,
             CreateComment,
             FollowAll(data: nil),
             Notification,

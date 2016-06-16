@@ -17,6 +17,7 @@ public enum ElloAPI {
     case Auth(email: String, password: String)
     case Availability(content: [String: String])
     case AwesomePeopleStream
+    case Categories
     case CommentDetail(postId: String, commentId: String)
     case CommunitiesStream
     case CreateComment(parentPostId: String, body: [String: AnyObject])
@@ -84,6 +85,8 @@ public enum ElloAPI {
 
     public var mappingType: MappingType {
         switch self {
+        case .Categories:
+            return .PostCategoriesType
         case .AmazonCredentials:
             return .AmazonCredentialsType
         case .Availability:
@@ -245,6 +248,8 @@ extension ElloAPI: Moya.TargetType {
             return "/api/\(ElloAPI.apiVersion)/discover/users/onboarding"
         case let .CommentDetail(postId, commentId):
             return "/api/\(ElloAPI.apiVersion)/posts/\(postId)/comments/\(commentId)"
+        case .Categories:
+            return "/api/\(ElloAPI.apiVersion)/categories"
         case .CommunitiesStream:
             return "/api/\(ElloAPI.apiVersion)/interest_categories/members"
         case let .CreateComment(parentPostId, _):
@@ -365,6 +370,8 @@ extension ElloAPI: Moya.TargetType {
         case .CreatePost,
              .RePost:
             return stubbedData("create-post")
+        case .Categories:
+            return stubbedData("categories")
         case .CommunitiesStream:
             return stubbedData("communities")
         case .DeleteComment,

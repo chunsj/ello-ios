@@ -51,8 +51,8 @@ public protocol ColumnToggleDelegate: class {
     func columnToggleTapped(isGridView: Bool)
 }
 
-public protocol DiscoverStreamPickerDelegate: class {
-    func discoverPickerTapped(type: DiscoverType)
+public protocol DiscoverCategoryPickerDelegate: class {
+    func discoverCategoryTapped(type: String)
 }
 
 // MARK: StreamNotification
@@ -107,6 +107,8 @@ public class StreamViewController: BaseElloViewController {
     public let streamService = StreamService()
     public var pullToRefreshView: SSPullToRefreshView?
     var allOlderPagesLoaded = false
+    public var initialLoadClosure: ElloEmptyCompletion?
+    public var customStreamCellItems: (([JSONAble], () -> [StreamCellItem]) -> [StreamCellItem])?
     var initialDataLoaded = false
     var parentTabBarController: ElloTabBarController? {
         if  let parentViewController = self.parentViewController,
@@ -272,8 +274,6 @@ public class StreamViewController: BaseElloViewController {
         self.doneLoading()
     }
 
-    public var initialLoadClosure: ElloEmptyCompletion?
-
     public func loadInitialPage() {
 
         if let initialLoadClosure = initialLoadClosure {
@@ -311,18 +311,21 @@ public class StreamViewController: BaseElloViewController {
     }
 
     private func generateStreamCellItems(jsonables: [JSONAble]) -> [StreamCellItem] {
+        let defaultItems: () -> [StreamCellItem] = {
+            return StreamCellItemParser().parse(jsonables, streamKind: self.streamKind, currentUser: self.currentUser)
+        }
+
+        if let customStreamCellItems = customStreamCellItems {
+            return customStreamCellItems(jsonables, defaultItems)
+        }
+
         var items: [StreamCellItem] = []
         if self.streamKind.hasGridViewToggle {
             let toggleCellItem = StreamCellItem(jsonable: JSONAble(version: 1), type: .ColumnToggle)
             items += [toggleCellItem]
         }
 
-        if self.streamKind.hasDiscoverStreamPicker {
-            let pickerCellItem = StreamCellItem(jsonable: JSONAble(version: 1), type: .DiscoverStreamPicker)
-            items += [pickerCellItem]
-        }
-
-        items += StreamCellItemParser().parse(jsonables, streamKind: self.streamKind, currentUser: self.currentUser)
+        items += defaultItems()
         return items
     }
 
@@ -548,7 +551,7 @@ public class StreamViewController: BaseElloViewController {
         dataSource.userDelegate = self
         dataSource.webLinkDelegate = self
         dataSource.columnToggleDelegate = self
-        dataSource.discoverStreamPickerDelegate = self
+        dataSource.discoverCategoryPickerDelegate = self
         dataSource.relationshipDelegate = relationshipController
 
         collectionView.dataSource = dataSource
@@ -603,15 +606,15 @@ extension StreamViewController: ColumnToggleDelegate {
     }
 }
 
-// MARK: StreamViewController: DiscoverStreamPickerDelegate
-extension StreamViewController: DiscoverStreamPickerDelegate {
+// MARK: StreamViewController: DiscoverCategoryPickerDelegate
+extension StreamViewController: DiscoverCategoryPickerDelegate {
 
-    public func discoverPickerTapped(type: DiscoverType) {
-        hideNoResults()
-        streamKind = .Discover(type: type, perPage: 10)
-        removeAllCellItems()
-        ElloHUD.showLoadingHudInView(view)
-        loadInitialPage()
+    public func discoverCategoryTapped(type: String) {
+        // hideNoResults()
+        // streamKind = .Discover(type: type, perPage: 10)
+        // removeAllCellItems()
+        // ElloHUD.showLoadingHudInView(view)
+        // loadInitialPage()
     }
 
 }

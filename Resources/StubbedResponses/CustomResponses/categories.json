@@ -1,0 +1,53 @@
+{
+  "categories": [
+    {
+      "id": "1",
+      "name": "Art",
+      "slug": "art",
+      "level": "primary",
+      "order": 0
+    },
+    {
+      "id": "2",
+      "name": "Architecture",
+      "slug": "architecture",
+      "level": "primary",
+      "order": 1
+    },
+    {
+      "id": "3",
+      "name": "Photography",
+      "slug": "photography",
+      "level": "primary",
+      "orde\nr": 2
+    },
+    {
+      "id": "4",
+      "name": "Writing",
+      "slug": "writing",
+      "level": "secondary",
+      "order": 0
+    },
+    {
+      "id": "5",
+      "name": "Textile Art",
+      "slug": "textile-art",
+      "level": "secondary",
+      "order": 1
+    },
+    {
+      "id": "6",
+      "name": "Cars",
+      "slug": "cars",
+      "level": "tertiary",
+      "order": 0
+    },
+    {
+      "id": "7",
+      "name": "Music",
+      "slug": "music",
+      "level": "tertiary",
+      "order": 1
+    }
+  ]
+}

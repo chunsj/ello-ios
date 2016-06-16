@@ -23,6 +23,7 @@ public enum MappingType: String {
     case LovesType = "loves"
     case NoContentType = "204"
     case PostsType = "posts"
+    case PostCategoriesType = "post_categories"
     case RelationshipsType = "relationships"
     case UsersType = "users"
     case UsernamesType = "usernames"

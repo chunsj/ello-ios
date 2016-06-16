@@ -162,13 +162,6 @@ public enum StreamKind {
         }
     }
 
-    public var hasDiscoverStreamPicker: Bool {
-        switch self {
-        case .Discover: return true
-        default: return false
-        }
-    }
-
     public var avatarHeight: CGFloat {
         return self.isGridView ? 30.0 : 60.0
     }

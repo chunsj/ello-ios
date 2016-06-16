@@ -83,6 +83,8 @@ extension ElloAPI: CustomStringConvertible, CustomDebugStringConvertible {
             return "Availability"
         case .AwesomePeopleStream:
             return "AwesomePeopleStream"
+        case .Categories:
+            return "Categories"
         case .CommentDetail:
             return "CommentDetail"
         case .CommunitiesStream:
