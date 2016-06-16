@@ -27,16 +27,6 @@ class ElloAPISpec: QuickSpec {
             provider = ElloProvider.DefaultProvider()
         }
 
-        describe("DiscoverType") {
-            describe("name") {
-                it("is correct for each case") {
-                    expect(DiscoverType.Recommended.name) == "Featured"
-                    expect(DiscoverType.Trending.name) == "Trending"
-                    expect(DiscoverType.Recent.name) == "Recent"
-                }
-            }
-        }
-
         describe("ElloAPI") {
             describe("paths") {
 
@@ -59,14 +49,14 @@ class ElloAPISpec: QuickSpec {
                     it("CreatePost is valid") {
                         expect(ElloAPI.CreatePost(body: [:]).path) == "/api/v2/posts"
                     }
-                    it("Discover.Recommended is valid") {
-                        expect(ElloAPI.Discover(type: DiscoverType.Recommended, perPage: 5).path) == "/api/v2/discover/posts/recommended"
+                    it("Discover(type: \"recommended\") is valid") {
+                        expect(ElloAPI.Discover(slug: "recommended").path) == "/api/v2/discover/posts/recommended"
                     }
-                    it("Discover.Trending is valid") {
-                        expect(ElloAPI.Discover(type: DiscoverType.Trending, perPage: 5).path) == "/api/v2/discover/users/trending"
+                    it("Discover(type: \"trending\") is valid") {
+                        expect(ElloAPI.Discover(slug: "trending").path) == "/api/v2/discover/users/trending"
                     }
-                    it("Discover.Recent is valid") {
-                        expect(ElloAPI.Discover(type: DiscoverType.Recent, perPage: 5).path) == "/api/v2/discover/posts/recent"
+                    it("Discover(type: \"recent\") is valid") {
+                        expect(ElloAPI.Discover(slug: "recent").path) == "/api/v2/discover/posts/recent"
                     }
                     it("FlagComment is valid") {
                         expect(ElloAPI.FlagComment(postId: "555", commentId: "666", kind: "some-string").path) == "/api/v2/posts/555/comments/666/flag/some-string"
@@ -154,9 +144,9 @@ class ElloAPISpec: QuickSpec {
                     (.DeleteLove(postId: ""), .NoContentType),
                     (.DeletePost(postId: ""), .ErrorType),
                     (.DeleteSubscriptions(token: NSData()), .NoContentType),
-                    (.Discover(type: .Recommended, perPage: 0), .PostsType),
-                    (.Discover(type: .Trending, perPage: 0), .UsersType),
-                    (.Discover(type: .Recent, perPage: 0), .PostsType),
+                    (.Discover(slug: "recommended"), .PostsType),
+                    (.Discover(slug: "trending"), .UsersType),
+                    (.Discover(slug: "recent"), .PostsType),
                     (.EmojiAutoComplete(terms: ""), .AutoCompleteResultType),
                     (.FindFriends(contacts: ["": [""]]), .UsersType),
                     (.FlagComment(postId: "", commentId: "", kind: ""), .NoContentType),
@@ -218,7 +208,7 @@ class ElloAPISpec: QuickSpec {
                         .DeleteLove(postId: ""),
                         .DeletePost(postId: ""),
                         .DeleteSubscriptions(token: NSData()),
-                        .Discover(type: .Trending, perPage: 0),
+                        .Discover(slug: "trending"),
                         .EmojiAutoComplete(terms: ""),
                         .FindFriends(contacts: [:]),
                         .FlagComment(postId: "", commentId: "", kind: ""),
@@ -294,7 +284,7 @@ class ElloAPISpec: QuickSpec {
                         .DeleteLove(postId: ""),
                         .DeletePost(postId: ""),
                         .DeleteSubscriptions(token: NSData()),
-                        .Discover(type: .Trending, perPage: 0),
+                        .Discover(slug: "trending"),
                         .EmojiAutoComplete(terms: ""),
                         .FindFriends(contacts: ["" : [""]]),
                         .FlagComment(postId: "", commentId: "", kind: ""),
@@ -381,7 +371,7 @@ class ElloAPISpec: QuickSpec {
                 }
 
                 it("Discover") {
-                    let params = ElloAPI.Discover(type: .Recommended, perPage: 10).parameters!
+                    let params = ElloAPI.Discover(slug: "recommended").parameters!
                     expect(params["per_page"] as? Int) == 10
                     expect(params["include_recent_posts"] as? Bool) == true
                     expect(params["seed"]).notTo(beNil())
@@ -398,7 +388,7 @@ class ElloAPISpec: QuickSpec {
 
                 it("InfiniteScroll") {
                     let queryItems = NSURLComponents(string: "ttp://ello.co/api/v2/posts/278/comments?after=2014-06-02T00%3A00%3A00.000000000%2B0000&per_page=2")!.queryItems
-                    let infiniteScroll = ElloAPI.InfiniteScroll(queryItems: queryItems!) { return ElloAPI.Discover(type: .Recommended, perPage: 10) }
+                    let infiniteScroll = ElloAPI.InfiniteScroll(queryItems: queryItems!) { return ElloAPI.Discover(slug: "recommended") }
                     let params = infiniteScroll.parameters!
                     expect(params["per_page"] as? String) == "2"
                     expect(params["include_recent_posts"] as? Bool) == true

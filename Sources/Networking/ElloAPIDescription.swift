@@ -23,7 +23,7 @@ extension ElloAPI: CustomStringConvertible, CustomDebugStringConvertible {
             return "DeletePost(postId: \(postId))"
         case let .DeleteSubscriptions(tokenData):
             return "DeleteSubscriptions(tokenData: \(tokenData))"
-        case let .Discover(type, _):
+        case let .Discover(type):
             return "Discover(type: \(type))"
         case let .EmojiAutoComplete(terms):
             return "EmojiAutoComplete(terms: \(terms))"

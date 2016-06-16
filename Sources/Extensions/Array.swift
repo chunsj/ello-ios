@@ -19,8 +19,11 @@ extension Array {
         }
         return nil
     }
+}
 
-    func any(@noescape test: (el: Element) -> Bool) -> Bool {
+extension SequenceType {
+
+    func any(@noescape test: (el: Generator.Element) -> Bool) -> Bool {
         for ob in self {
             if test(el: ob) {
                 return true
@@ -29,7 +32,7 @@ extension Array {
         return false
     }
 
-    func all(test: (el: Element) -> Bool) -> Bool {
+    func all(test: (el: Generator.Element) -> Bool) -> Bool {
         for ob in self {
             if !test(el: ob) {
                 return false
@@ -37,6 +40,7 @@ extension Array {
         }
         return true
     }
+
 }
 
 extension Array where Element: Equatable {

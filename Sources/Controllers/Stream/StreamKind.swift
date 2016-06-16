@@ -11,7 +11,7 @@ import SwiftyUserDefaults
 
 public enum StreamKind {
     case CurrentUserStream
-    case Discover(type: DiscoverType, perPage: Int)
+    case Discover(slug: String)
     case Following
     case Starred
     case Notifications(category: String?)
@@ -80,7 +80,7 @@ public enum StreamKind {
 
     public var endpoint: ElloAPI {
         switch self {
-        case let .Discover(type, perPage): return ElloAPI.Discover(type: type, perPage: perPage)
+        case let .Discover(slug): return .Discover(slug: slug)
         case .Following: return .FriendStream
         case .Starred: return .NoiseStream
         case let .Notifications(category): return .NotificationsStream(category: category)

@@ -609,12 +609,12 @@ extension StreamViewController: ColumnToggleDelegate {
 // MARK: StreamViewController: DiscoverCategoryPickerDelegate
 extension StreamViewController: DiscoverCategoryPickerDelegate {
 
-    public func discoverCategoryTapped(type: String) {
-        // hideNoResults()
-        // streamKind = .Discover(type: type, perPage: 10)
-        // removeAllCellItems()
-        // ElloHUD.showLoadingHudInView(view)
-        // loadInitialPage()
+    public func discoverCategoryTapped(slug: String) {
+        hideNoResults()
+        streamKind = .Discover(slug: slug)
+        removeAllCellItems()
+        ElloHUD.showLoadingHudInView(view)
+        loadInitialPage()
     }
 
 }

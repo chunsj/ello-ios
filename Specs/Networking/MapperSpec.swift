@@ -62,7 +62,6 @@ class MapperSpec: QuickSpec {
                     let friendData = stubbedJSONDataArray("friends", "activities")
                     let activities = Mapper.mapToObjectArray(friendData, fromJSON: Activity.fromJSON)
 
-                    expect(activities).toNot(beNil())
                     expect(activities.first).to(beAKindOf(Activity.self))
                 }
             }

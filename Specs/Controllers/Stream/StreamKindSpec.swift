@@ -23,7 +23,7 @@ class StreamKindSpec: QuickSpec {
             describe("name") {
 
                 it("is correct for all cases") {
-                    expect(StreamKind.Discover(type: .Recommended, perPage: 1).name) == "Discover"
+                    expect(StreamKind.Discover(slug: "recommended").name) == "Discover"
                     expect(StreamKind.Following.name) == "Following"
                     expect(StreamKind.Starred.name) == "Starred"
                     expect(StreamKind.Notifications(category: "").name) == "Notifications"
@@ -38,7 +38,7 @@ class StreamKindSpec: QuickSpec {
             describe("cacheKey") {
 
                 it("is correct for all cases") {
-                    expect(StreamKind.Discover(type: .Recommended, perPage: 1).cacheKey) == "Discover"
+                    expect(StreamKind.Discover(slug: "recommended").cacheKey) == "Discover"
                     expect(StreamKind.Following.cacheKey) == "Following"
                     expect(StreamKind.Starred.cacheKey) == "Starred"
                     expect(StreamKind.Notifications(category: "").cacheKey) == "Notifications"
@@ -54,7 +54,7 @@ class StreamKindSpec: QuickSpec {
             describe("lastViewedCreatedAtKey") {
 
                 it("is correct for all cases") {
-                    expect(StreamKind.Discover(type: .Recommended, perPage: 1).lastViewedCreatedAtKey) == "Discover_createdAt"
+                    expect(StreamKind.Discover(slug: "recommended").lastViewedCreatedAtKey) == "Discover_createdAt"
                     expect(StreamKind.Following.lastViewedCreatedAtKey) == "Following_createdAt"
                     expect(StreamKind.Starred.lastViewedCreatedAtKey) == "Starred_createdAt"
                     expect(StreamKind.Notifications(category: "").lastViewedCreatedAtKey) == "Notifications_createdAt"
@@ -70,7 +70,7 @@ class StreamKindSpec: QuickSpec {
             describe("columnCount") {
 
                 beforeEach {
-                    StreamKind.Discover(type: .Recommended, perPage: 1).setIsGridView(false)
+                    StreamKind.Discover(slug: "recommended").setIsGridView(false)
                     StreamKind.Following.setIsGridView(false)
                     StreamKind.Starred.setIsGridView(false)
                     StreamKind.Notifications(category: "").setIsGridView(false)
@@ -83,11 +83,11 @@ class StreamKindSpec: QuickSpec {
                 }
 
                 it("is correct for all cases") {
-                    StreamKind.Discover(type: .Recommended, perPage: 1).setIsGridView(true)
-                    expect(StreamKind.Discover(type: .Recommended, perPage: 1).columnCount) == 2
+                    StreamKind.Discover(slug: "recommended").setIsGridView(true)
+                    expect(StreamKind.Discover(slug: "recommended").columnCount) == 2
 
-                    StreamKind.Discover(type: .Recommended, perPage: 1).setIsGridView(false)
-                    expect(StreamKind.Discover(type: .Recommended, perPage: 1).columnCount) == 1
+                    StreamKind.Discover(slug: "recommended").setIsGridView(false)
+                    expect(StreamKind.Discover(slug: "recommended").columnCount) == 1
 
                     StreamKind.Following.setIsGridView(false)
                     expect(StreamKind.Following.columnCount) == 1
@@ -131,7 +131,7 @@ class StreamKindSpec: QuickSpec {
                 }
 
                 it("is correct for all cases") {
-                    expect(StreamKind.Discover(type: .Recommended, perPage: 1).tappingTextOpensDetail) == true
+                    expect(StreamKind.Discover(slug: "recommended").tappingTextOpensDetail) == true
                     expect(StreamKind.Following.tappingTextOpensDetail) == false
                     expect(StreamKind.Starred.tappingTextOpensDetail) == true
                     expect(StreamKind.Notifications(category: "").tappingTextOpensDetail) == true
@@ -146,7 +146,7 @@ class StreamKindSpec: QuickSpec {
             describe("endpoint") {
 
                 it("is correct for all cases") {
-                    expect(StreamKind.Discover(type: .Recommended, perPage: 1).endpoint.path) == "/api/\(ElloAPI.apiVersion)/discover/posts/\(DiscoverType.Recommended.rawValue)"
+                    expect(StreamKind.Discover(slug: "recommended").endpoint.path) == "/api/\(ElloAPI.apiVersion)/discover/posts/recommended"
                     expect(StreamKind.Following.endpoint.path) == "/api/\(ElloAPI.apiVersion)/streams/friend"
                     expect(StreamKind.Starred.endpoint.path) == "/api/\(ElloAPI.apiVersion)/streams/noise"
                     expect(StreamKind.Notifications(category: "").endpoint.path) == "/api/\(ElloAPI.apiVersion)/notifications"
@@ -163,7 +163,7 @@ class StreamKindSpec: QuickSpec {
             describe("relationship") {
 
                 it("is correct for all cases") {
-                    expect(StreamKind.Discover(type: .Recommended, perPage: 1).relationship) == RelationshipPriority.Null
+                    expect(StreamKind.Discover(slug: "recommended").relationship) == RelationshipPriority.Null
                     expect(StreamKind.Following.relationship) == RelationshipPriority.Following
                     expect(StreamKind.Starred.relationship) == RelationshipPriority.Starred
                     expect(StreamKind.Notifications(category: "").relationship) == RelationshipPriority.Null
@@ -196,9 +196,9 @@ class StreamKindSpec: QuickSpec {
                         userJsonables = [user1, user2, user3]
                     }
 
-                    context(".Recommended") {
+                    context("Discover(recommended)") {
                         it("returns the correct posts regardless of views adult content") {
-                            let kind = StreamKind.Discover(type: .Recommended, perPage: 5)
+                            let kind = StreamKind.Discover(slug: "recommended")
                             var filtered = kind.filter(postJsonables, viewsAdultContent: false) as! [Post]
 
                             expect(filtered.count) == 3
@@ -215,9 +215,9 @@ class StreamKindSpec: QuickSpec {
                         }
                     }
 
-                    context(".Trending") {
+                    context("trending") {
                         it("returns the correct posts regardless of views adult content") {
-                            let kind = StreamKind.Discover(type: .Trending, perPage: 5)
+                            let kind = StreamKind.Discover(slug: "trending")
                             var filtered = kind.filter(userJsonables, viewsAdultContent: false) as! [Post]
 
                             expect(filtered.count) == 3
@@ -234,9 +234,9 @@ class StreamKindSpec: QuickSpec {
                         }
                     }
 
-                    context(".Recent") {
+                    context("recent") {
                         it("returns the correct posts regardless of views adult content") {
-                            let kind = StreamKind.Discover(type: .Recent, perPage: 5)
+                            let kind = StreamKind.Discover(slug: "recent")
                             var filtered = kind.filter(postJsonables, viewsAdultContent: false) as! [Post]
 
                             expect(filtered.count) == 3
@@ -258,7 +258,7 @@ class StreamKindSpec: QuickSpec {
             describe("showStarButton") {
 
                 let tests: [(Bool, StreamKind)] = [
-                    (true, StreamKind.Discover(type: .Recommended, perPage: 1)),
+                    (true, StreamKind.Discover(slug: "recommended")),
                     (true, StreamKind.Following),
                     (true, StreamKind.Starred),
                     (false, StreamKind.Notifications(category: "")),
@@ -281,7 +281,7 @@ class StreamKindSpec: QuickSpec {
             describe("clientSidePostInsertIndexPath(currentUserId:)") {
                 let one = NSIndexPath(forItem: 1, inSection: 0)
                 let tests: [(NSIndexPath?, StreamKind)] = [
-                    (nil, StreamKind.Discover(type: .Recommended, perPage: 1)),
+                    (nil, StreamKind.Discover(slug: "recommended")),
                     (one, StreamKind.Following),
                     (nil, StreamKind.Starred),
                     (nil, StreamKind.SimpleStream(endpoint: ElloAPI.Loves(userId: "12345"), title: "n/a")),
@@ -313,7 +313,7 @@ class StreamKindSpec: QuickSpec {
             describe("clientSideLoveInsertIndexPath") {
                 let one = NSIndexPath(forItem: 1, inSection: 0)
                 let tests: [(NSIndexPath?, StreamKind)] = [
-                    (nil, StreamKind.Discover(type: .Recommended, perPage: 1)),
+                    (nil, StreamKind.Discover(slug: "recommended")),
                     (nil, StreamKind.Following),
                     (nil, StreamKind.Starred),
                     (one, StreamKind.SimpleStream(endpoint: ElloAPI.Loves(userId: "12345"), title: "n/a")),
@@ -345,7 +345,7 @@ class StreamKindSpec: QuickSpec {
             describe("isGridView") {
 
                 beforeEach {
-                    StreamKind.Discover(type: .Recommended, perPage: 1).setIsGridView(false)
+                    StreamKind.Discover(slug: "recommended").setIsGridView(false)
                     StreamKind.Following.setIsGridView(false)
                     StreamKind.Starred.setIsGridView(false)
                     StreamKind.Notifications(category: "").setIsGridView(false)
@@ -360,11 +360,11 @@ class StreamKindSpec: QuickSpec {
 
 
                 it("is correct for all cases") {
-                    StreamKind.Discover(type: .Recommended, perPage: 1).setIsGridView(true)
-                    expect(StreamKind.Discover(type: .Recommended, perPage: 1).isGridView) == true
+                    StreamKind.Discover(slug: "recommended").setIsGridView(true)
+                    expect(StreamKind.Discover(slug: "recommended").isGridView) == true
 
-                    StreamKind.Discover(type: .Recommended, perPage: 1).setIsGridView(false)
-                    expect(StreamKind.Discover(type: .Recommended, perPage: 1).isGridView) == false
+                    StreamKind.Discover(slug: "recommended").setIsGridView(false)
+                    expect(StreamKind.Discover(slug: "recommended").isGridView) == false
 
                     StreamKind.Following.setIsGridView(false)
                     expect(StreamKind.Following.isGridView) == false
@@ -405,7 +405,7 @@ class StreamKindSpec: QuickSpec {
             describe("hasGridViewToggle") {
 
                 it("is correct for all cases") {
-                    expect(StreamKind.Discover(type: .Recommended, perPage: 1).hasGridViewToggle) == true
+                    expect(StreamKind.Discover(slug: "recommended").hasGridViewToggle) == true
                     expect(StreamKind.Following.hasGridViewToggle) == true
                     expect(StreamKind.Starred.hasGridViewToggle) == true
                     expect(StreamKind.Notifications(category: "").hasGridViewToggle) == false
@@ -459,7 +459,7 @@ class StreamKindSpec: QuickSpec {
 
                 it("is correct for all cases") {
                     let normalOffset = CGPoint(x: 0, y: -20)
-                    expect(StreamKind.Discover(type: .Recommended, perPage: 1).gridPreferenceSetOffset) == CGPoint(x: 0, y: -80)
+                    expect(StreamKind.Discover(slug: "recommended").gridPreferenceSetOffset) == CGPoint(x: 0, y: -80)
                     expect(StreamKind.Following.gridPreferenceSetOffset) == normalOffset
                     expect(StreamKind.Starred.gridPreferenceSetOffset) == normalOffset
                     expect(StreamKind.Notifications(category: "").gridPreferenceSetOffset) == normalOffset
@@ -476,7 +476,7 @@ class StreamKindSpec: QuickSpec {
             describe("isDetail") {
 
                 it("is correct for all cases") {
-                    expect(StreamKind.Discover(type: .Recommended, perPage: 1).isDetail) == false
+                    expect(StreamKind.Discover(slug: "recommended").isDetail) == false
                     expect(StreamKind.Following.isDetail) == false
                     expect(StreamKind.Starred.isDetail) == false
                     expect(StreamKind.Notifications(category: "").isDetail) == false
@@ -492,7 +492,7 @@ class StreamKindSpec: QuickSpec {
             describe("supportsLargeImages") {
 
                 it("is correct for all cases") {
-                    expect(StreamKind.Discover(type: .Recommended, perPage: 1).supportsLargeImages) == false
+                    expect(StreamKind.Discover(slug: "recommended").supportsLargeImages) == false
                     expect(StreamKind.Following.supportsLargeImages) == false
                     expect(StreamKind.Starred.supportsLargeImages) == false
                     expect(StreamKind.Notifications(category: "").supportsLargeImages) == false

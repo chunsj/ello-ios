@@ -7,8 +7,6 @@
 //
 
 public class DiscoverViewController: StreamableViewController {
-    let tmpCategoryList: CategoryList = CategoryList.tmp()
-
     var screen: DiscoverScreen!
 
     override public var tabBarItem: UITabBarItem? {
@@ -22,14 +20,12 @@ public class DiscoverViewController: StreamableViewController {
         addSearchButton()
         title = InterfaceString.Discover.Title
         elloNavigationItem.title = title
-        streamViewController.streamKind = .Discover(type: .Recommended, perPage: 10)
+        streamViewController.streamKind = .Discover(slug: "recommended")
         streamViewController.customStreamCellItems = { jsonables, defaultItems in
             var items: [StreamCellItem] = []
 
             let toggleCellItem = StreamCellItem(jsonable: JSONAble(version: 1), type: .ColumnToggle)
-            let categoryList = self.tmpCategoryList
-            categoryList.selectedCategory = categoryList.categories.first
-            let categoryListItem = StreamCellItem(jsonable: categoryList, type: .CategoryList)
+            let categoryListItem = StreamCellItem(jsonable: CategoryList.tmp(), type: .CategoryList)
             items += [toggleCellItem, categoryListItem]
 
             items += defaultItems()

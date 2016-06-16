@@ -432,8 +432,6 @@
 		1D15C2791C7D12890013B192 /* InterfaceString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D15C2771C7D12890013B192 /* InterfaceString.swift */; };
 		1D15C27B1C7D13050013B192 /* InterfaceString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D15C2771C7D12890013B192 /* InterfaceString.swift */; };
 		1D15C27C1C7D137F0013B192 /* InterfaceImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D15C2761C7D12890013B192 /* InterfaceImage.swift */; };
-		1D15C27E1C7D17CA0013B192 /* DiscoverType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D15C27D1C7D17CA0013B192 /* DiscoverType.swift */; };
-		1D15C27F1C7D18710013B192 /* DiscoverType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D15C27D1C7D17CA0013B192 /* DiscoverType.swift */; };
 		1D1AF6231A83ED7F00E06C93 /* PostDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D1AF6221A83ED7F00E06C93 /* PostDetailViewController.swift */; };
 		1D1AF6261A83F02000E06C93 /* PostDetailViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D1AF6251A83F02000E06C93 /* PostDetailViewControllerSpec.swift */; };
 		1D1AF6281A84437B00E06C93 /* StreamableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D1AF6271A84437B00E06C93 /* StreamableViewController.swift */; };
@@ -478,6 +476,7 @@
 		1D5933751D10BC8100EAF03D /* CategoryLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5933741D10BC8100EAF03D /* CategoryLevel.swift */; };
 		1D5933781D10CD2F00EAF03D /* CategoryListSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5933761D10CD2F00EAF03D /* CategoryListSpec.swift */; };
 		1D5933791D10CD2F00EAF03D /* CategorySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5933771D10CD2F00EAF03D /* CategorySpec.swift */; };
+		1D59337B1D136E0500EAF03D /* CategoryListCellSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D59337A1D136E0500EAF03D /* CategoryListCellSpec.swift */; };
 		1D5A003E1CE3C0A80070B2BF /* FakeKeychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5A003D1CE3C0A80070B2BF /* FakeKeychain.swift */; };
 		1D5F97751A9696E700AEEB5F /* AttributedStringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8AFAD11A9694040034DDAD /* AttributedStringExtensions.swift */; };
 		1D5F97791A9699DA00AEEB5F /* StreamNotificationCellSizeCalculatorSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F97771A9699DA00AEEB5F /* StreamNotificationCellSizeCalculatorSpec.swift */; };
@@ -1239,7 +1238,6 @@
 		1D15539B1BCC7DA300507F7D /* ProfileInfoViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileInfoViewControllerSpec.swift; sourceTree = "<group>"; };
 		1D15C2761C7D12890013B192 /* InterfaceImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterfaceImage.swift; sourceTree = "<group>"; };
 		1D15C2771C7D12890013B192 /* InterfaceString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterfaceString.swift; sourceTree = "<group>"; };
-		1D15C27D1C7D17CA0013B192 /* DiscoverType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoverType.swift; sourceTree = "<group>"; };
 		1D1AF6221A83ED7F00E06C93 /* PostDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostDetailViewController.swift; sourceTree = "<group>"; };
 		1D1AF6251A83F02000E06C93 /* PostDetailViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostDetailViewControllerSpec.swift; sourceTree = "<group>"; };
 		1D1AF6271A84437B00E06C93 /* StreamableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamableViewController.swift; sourceTree = "<group>"; };
@@ -1284,6 +1282,7 @@
 		1D5933741D10BC8100EAF03D /* CategoryLevel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryLevel.swift; sourceTree = "<group>"; };
 		1D5933761D10CD2F00EAF03D /* CategoryListSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryListSpec.swift; sourceTree = "<group>"; };
 		1D5933771D10CD2F00EAF03D /* CategorySpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategorySpec.swift; sourceTree = "<group>"; };
+		1D59337A1D136E0500EAF03D /* CategoryListCellSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryListCellSpec.swift; sourceTree = "<group>"; };
 		1D5A003D1CE3C0A80070B2BF /* FakeKeychain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeKeychain.swift; sourceTree = "<group>"; };
 		1D5F97771A9699DA00AEEB5F /* StreamNotificationCellSizeCalculatorSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamNotificationCellSizeCalculatorSpec.swift; sourceTree = "<group>"; };
 		1D652F591BC2D66200AF3B06 /* PostbarControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostbarControllerSpec.swift; sourceTree = "<group>"; };
@@ -1758,7 +1757,6 @@
 				1207C9511C73FEE000939ADB /* ContentFlaggingService.swift */,
 				1207C9521C73FEE000939ADB /* CredentialsAuthService.swift */,
 				1207C9531C73FEE000939ADB /* DateFormatting.swift */,
-				1D15C27D1C7D17CA0013B192 /* DiscoverType.swift */,
 				1207C9541C73FEE000939ADB /* ElloAPI.swift */,
 				1207C9551C73FEE000939ADB /* ElloAPIDescription.swift */,
 				1207C9561C73FEE000939ADB /* ElloManager.swift */,
@@ -2372,6 +2370,7 @@
 		12F47DCE1AD7134200A73B5F /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				1D59337A1D136E0500EAF03D /* CategoryListCellSpec.swift */,
 				1D26E1671C52E26D0034448D /* NotificationCellSpec.swift */,
 				763458E11AEED87700BA91A5 /* StreamImageCellSizeCalculatorSpec.swift */,
 				76BE9C541B2B773B007575AA /* StreamInviteFriendsCellSpec.swift */,
@@ -3997,7 +3996,6 @@
 				122B30B31C6A3FBB00C1B9D8 /* Availability.swift in Sources */,
 				122D1B7C1C610892001386CE /* NSString.swift in Sources */,
 				122B30E51C6A3FC400C1B9D8 /* Attachment.swift in Sources */,
-				1D15C27F1C7D18710013B192 /* DiscoverType.swift in Sources */,
 				1207C99D1C750F8A00939ADB /* ElloManager.swift in Sources */,
 				122B30C31C6A3FBB00C1B9D8 /* PushPayload.swift in Sources */,
 				122B30E71C6A3FC400C1B9D8 /* ImageRegion.swift in Sources */,
@@ -4128,6 +4126,7 @@
 				1D7A28D31A97A7490050E8A2 /* NotificationAttributedTitleSpec.swift in Sources */,
 				768043761AC20317004FEE09 /* ProfileViewControllerSpec.swift in Sources */,
 				76BE9C571B2B77D7007575AA /* UserListItemCellPresenterSpec.swift in Sources */,
+				1D59337B1D136E0500EAF03D /* CategoryListCellSpec.swift in Sources */,
 				762385C91B0143A500138780 /* NumberExtensionsSpec.swift in Sources */,
 				1DBF85C11AF8022E00889349 /* ElloWebBrowserViewControllerSpec.swift in Sources */,
 				12D14C711A43762400C6F8E8 /* ElloNetworkErrorSpec.swift in Sources */,
@@ -4563,7 +4562,6 @@
 				EAF43D941AB0DE080016E110 /* ObjectCache.swift in Sources */,
 				76FF80551A966B6300617A1E /* RelationshipController.swift in Sources */,
 				122B190D1A86894400247A05 /* StreamCellType.swift in Sources */,
-				1D15C27E1C7D17CA0013B192 /* DiscoverType.swift in Sources */,
 				122B30C41C6A3FBC00C1B9D8 /* Activity.swift in Sources */,
 				EA34DAC71AD85826002F566D /* DynamicSettingsViewController.swift in Sources */,
 				1243576A1A8927BF008B24FB /* NotificationsViewController.swift in Sources */,

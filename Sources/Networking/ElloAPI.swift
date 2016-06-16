@@ -27,7 +27,7 @@ public enum ElloAPI {
     case DeleteLove(postId: String)
     case DeletePost(postId: String)
     case DeleteSubscriptions(token: NSData)
-    case Discover(type: DiscoverType, perPage: Int)
+    case Discover(slug: String)
     case EmojiAutoComplete(terms: String)
     case FindFriends(contacts: [String: [String]])
     case FlagComment(postId: String, commentId: String, kind: String)
@@ -109,9 +109,9 @@ public enum ElloAPI {
              .UserStreamFollowers,
              .UserStreamFollowing:
             return .UsersType
-        case let .Discover(discoverType, _):
-            switch discoverType {
-            case .Trending:
+        case let .Discover(slug):
+            switch slug {
+            case "trending":
                 return .UsersType
             default:
                 return .PostsType
@@ -267,12 +267,12 @@ extension ElloAPI: Moya.TargetType {
             return "/api/\(ElloAPI.apiVersion)/posts/\(postId)"
         case let .DeleteSubscriptions(tokenData):
             return "/\(ElloAPI.CurrentUserStream.path)/push_subscriptions/apns/\(tokenStringFromData(tokenData))"
-        case let .Discover(type, _):
-            switch type {
-            case .Trending:
-                return "/api/\(ElloAPI.apiVersion)/discover/users/\(type.rawValue)"
+        case let .Discover(slug):
+            switch slug {
+            case "trending":
+                return "/api/\(ElloAPI.apiVersion)/discover/users/\(slug)"
             default:
-                return "/api/\(ElloAPI.apiVersion)/discover/posts/\(type.rawValue)"
+                return "/api/\(ElloAPI.apiVersion)/discover/posts/\(slug)"
             }
         case .EmojiAutoComplete(_):
             return "/api/\(ElloAPI.apiVersion)/emoji/autocomplete"
@@ -523,9 +523,9 @@ extension ElloAPI: Moya.TargetType {
             return body
         case let .CreatePost(body):
             return body
-        case let .Discover(_, perPage):
+        case .Discover:
             return [
-                "per_page": perPage,
+                "per_page": 10,
                 "include_recent_posts": true,
                 "seed": ElloAPI.generateSeed()
             ]
