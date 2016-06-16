@@ -53,6 +53,7 @@ public protocol ColumnToggleDelegate: class {
 
 public protocol DiscoverCategoryPickerDelegate: class {
     func discoverCategoryTapped(type: String)
+    func discoverSecondaryCategoriesTapped()
 }
 
 // MARK: StreamNotification
@@ -615,6 +616,9 @@ extension StreamViewController: DiscoverCategoryPickerDelegate {
         removeAllCellItems()
         ElloHUD.showLoadingHudInView(view)
         loadInitialPage()
+    }
+
+    public func discoverSecondaryCategoriesTapped() {
     }
 
 }

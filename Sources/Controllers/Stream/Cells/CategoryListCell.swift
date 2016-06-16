@@ -61,7 +61,7 @@ public class CategoryListCell: UICollectionViewCell {
         super.init(frame: frame)
 
         style()
-        // bindActions()
+        bindActions()
         // setText()
         arrange()
     }
@@ -73,6 +73,10 @@ public class CategoryListCell: UICollectionViewCell {
     private func style() {
         backgroundColor = .whiteColor()
         secondaryCategoriesButton.setImage(.Dots, imageStyle: .Normal, forState: .Normal)
+    }
+
+    private func bindActions() {
+        secondaryCategoriesButton.addTarget(self, action: #selector(secondaryTapped(_:)), forControlEvents: .TouchUpInside)
     }
 
     private func arrange() {
@@ -88,6 +92,11 @@ public class CategoryListCell: UICollectionViewCell {
     func valueChanged(button: UIButton) {
         guard let slug = buttonSlugLookup[button] else { return }
         discoverCategoryPickerDelegate?.discoverCategoryTapped(slug)
+    }
+
+    @objc
+    func secondaryTapped() {
+        discoverCategoryPickerDelegate?.discoverSecondaryCategoriesTapped()
     }
 
     private func updateCategoryViews() {
