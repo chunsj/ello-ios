@@ -530,11 +530,8 @@ extension AppViewController {
     private func showInvitationScreen(vc: ElloTabBarController) {
         showDiscoverScreen(vc)
 
-        if let navigationController = vc.selectedViewController as? UINavigationController,
-            discoverViewController = navigationController.childViewControllers.safeValue(0) as? DiscoverViewController
-        {
-            discoverViewController.importMyContactsTapped()
-        }
+        let responder = targetForAction(#selector(InviteResponder.onInviteFriends), withSender: self) as? InviteResponder
+        responder?.onInviteFriends()
     }
 
     private func showDiscoverScreen(vc: ElloTabBarController) {
