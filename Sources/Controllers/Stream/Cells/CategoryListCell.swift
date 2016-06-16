@@ -40,7 +40,7 @@ public class CategoryListCell: UICollectionViewCell {
         }
     }
     private var categoryButtons: [UIButton] = []
-    private var secondaryCategoriesButton = UIButton()
+    private var allCategoriesButton = UIButton()
 
     private class func buttonTitle(category: String, selected: Bool) -> NSAttributedString {
         var attrs: [String: AnyObject] = [
@@ -72,17 +72,17 @@ public class CategoryListCell: UICollectionViewCell {
 
     private func style() {
         backgroundColor = .whiteColor()
-        secondaryCategoriesButton.setImage(.Dots, imageStyle: .Normal, forState: .Normal)
+        allCategoriesButton.setImage(.Dots, imageStyle: .Normal, forState: .Normal)
     }
 
     private func bindActions() {
-        secondaryCategoriesButton.addTarget(self, action: #selector(secondaryTapped(_:)), forControlEvents: .TouchUpInside)
+        allCategoriesButton.addTarget(self, action: #selector(allTapped), forControlEvents: .TouchUpInside)
     }
 
     private func arrange() {
-        addSubview(secondaryCategoriesButton)
+        addSubview(allCategoriesButton)
 
-        secondaryCategoriesButton.snp_makeConstraints { make in
+        allCategoriesButton.snp_makeConstraints { make in
             make.centerY.equalTo(contentView)
             make.trailing.equalTo(contentView).offset(-Size.sideMargins).priorityRequired()
         }
@@ -95,8 +95,8 @@ public class CategoryListCell: UICollectionViewCell {
     }
 
     @objc
-    func secondaryTapped() {
-        discoverCategoryPickerDelegate?.discoverSecondaryCategoriesTapped()
+    func allTapped() {
+        discoverCategoryPickerDelegate?.discoverAllCategoriesTapped()
     }
 
     private func updateCategoryViews() {
@@ -137,7 +137,7 @@ public class CategoryListCell: UICollectionViewCell {
         layoutIfNeeded()
 
         for view in categoryButtons {
-            if view.frame.maxX > secondaryCategoriesButton.frame.minX {
+            if view.frame.maxX > allCategoriesButton.frame.minX {
                 view.hidden = true
             }
         }

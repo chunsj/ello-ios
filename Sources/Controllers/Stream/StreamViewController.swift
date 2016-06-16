@@ -53,7 +53,7 @@ public protocol ColumnToggleDelegate: class {
 
 public protocol DiscoverCategoryPickerDelegate: class {
     func discoverCategoryTapped(type: String)
-    func discoverSecondaryCategoriesTapped()
+    func discoverAllCategoriesTapped()
 }
 
 // MARK: StreamNotification
@@ -618,7 +618,7 @@ extension StreamViewController: DiscoverCategoryPickerDelegate {
         loadInitialPage()
     }
 
-    public func discoverSecondaryCategoriesTapped() {
+    public func discoverAllCategoriesTapped() {
     }
 
 }
